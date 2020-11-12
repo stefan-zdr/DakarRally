@@ -1,0 +1,466 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Malfunctions">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="VehicleId" />
+            <PropertyRef Name="MalfunctionId" />
+          </Key>
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="VehicleId" Type="int" Nullable="false" />
+          <Property Name="MalfunctionId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="StartAt" Type="datetime" Nullable="false" />
+          <Property Name="EndAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Races">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="EndsAt" Type="datetime" />
+          <Property Name="StartsAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RaceVehicles">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="VehicleId" Type="int" Nullable="false" />
+          <Property Name="Distance" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FinishTime" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="EndsRaceAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ManufacturingDate" Type="datetime" Nullable="false" />
+          <Property Name="VehicleTypeId" Type="int" Nullable="false" />
+          <Property Name="VehicleSubtypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="VehicleTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TopSpeedKmH" Type="int" />
+          <Property Name="LightMalfunctionHours" Type="int" />
+          <Property Name="PercentageForLightMalfunction" Type="numeric" Precision="3" Scale="2" />
+          <Property Name="PercentageForHeavyMalfanction" Type="numeric" Precision="3" Scale="2" />
+        </EntityType>
+        <Association Name="FK_ParentId">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+          <End Role="VehicleTypes1" Type="Self.VehicleTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleTypes1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Race">
+          <End Role="Races" Type="Self.Races" Multiplicity="1" />
+          <End Role="Malfunctions" Type="Self.Malfunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Races">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Malfunctions">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RaceId">
+          <End Role="Races" Type="Self.Races" Multiplicity="1" />
+          <End Role="RaceVehicles" Type="Self.RaceVehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Races">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceVehicles">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicle">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="Malfunctions" Type="Self.Malfunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Malfunctions">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleId">
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="1" />
+          <End Role="RaceVehicles" Type="Self.RaceVehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceVehicles">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleSubTypeId">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleSubtypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleTypeId">
+          <End Role="VehicleTypes" Type="Self.VehicleTypes" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Malfunctions" EntityType="Self.Malfunctions" store:Type="Tables" />
+          <EntitySet Name="Races" EntityType="Self.Races" store:Type="Tables" />
+          <EntitySet Name="RaceVehicles" EntityType="Self.RaceVehicles" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" store:Type="Tables" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleTypes" store:Type="Tables" />
+          <AssociationSet Name="FK_ParentId" Association="Self.FK_ParentId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="VehicleTypes1" EntitySet="VehicleTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Race" Association="Self.FK_Race">
+            <End Role="Races" EntitySet="Races" />
+            <End Role="Malfunctions" EntitySet="Malfunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RaceId" Association="Self.FK_RaceId">
+            <End Role="Races" EntitySet="Races" />
+            <End Role="RaceVehicles" EntitySet="RaceVehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicle" Association="Self.FK_Vehicle">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="Malfunctions" EntitySet="Malfunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleId" Association="Self.FK_VehicleId">
+            <End Role="Vehicles" EntitySet="Vehicles" />
+            <End Role="RaceVehicles" EntitySet="RaceVehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleSubTypeId" Association="Self.FK_VehicleSubTypeId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleTypeId" Association="Self.FK_VehicleTypeId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VehicleTypeId" Type="Int32" Nullable="false" />
+          <Property Name="VehicleSubtypeId" Type="Int32" />
+          <NavigationProperty Name="VehicleSubtype" Relationship="Self.FK_VehicleSubTypeId" FromRole="Vehicles" ToRole="VehicleTypes" />
+          <NavigationProperty Name="VehicleType" Relationship="Self.FK_VehicleTypeId" FromRole="Vehicles" ToRole="VehicleTypes" />
+          <NavigationProperty Name="Malfunctions" Relationship="Model.FK_Vehicle" FromRole="Vehicle" ToRole="Malfunction" />
+          <NavigationProperty Name="RaceVehicles" Relationship="Model.FK_VehicleId" FromRole="Vehicle" ToRole="RaceVehicle" />
+        </EntityType>
+        <EntityType Name="VehicleType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TopSpeedKmH" Type="Int32" />
+          <Property Name="LightMalfunctionHours" Type="Int32" />
+          <Property Name="PercentageForLightMalfunction" Type="Decimal" Precision="3" Scale="2" />
+          <Property Name="PercentageForHeavyMalfanction" Type="Decimal" Precision="3" Scale="2" />
+          <NavigationProperty Name="Vehicles" Relationship="Self.FK_VehicleSubTypeId" FromRole="VehicleTypes" ToRole="Vehicles" />
+          <NavigationProperty Name="Vehicles1" Relationship="Self.FK_VehicleTypeId" FromRole="VehicleTypes" ToRole="Vehicles" />
+          <NavigationProperty Name="VehicleTypes1" Relationship="Self.FK_ParentId_Id" FromRole="VehicleTypes" ToRole="VehicleTypes1" />
+          <NavigationProperty Name="VehicleType1" Relationship="Self.FK_ParentId_Id" FromRole="VehicleTypes1" ToRole="VehicleTypes" />
+        </EntityType>
+        <Association Name="FK_VehicleSubTypeId">
+          <End Role="VehicleTypes" Type="Self.VehicleType" Multiplicity="0..1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleSubtypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleTypeId">
+          <End Role="VehicleTypes" Type="Self.VehicleType" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParentId_Id">
+          <End Role="VehicleTypes" Type="Self.VehicleType" Multiplicity="0..1" />
+          <End Role="VehicleTypes1" Type="Self.VehicleType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VehicleTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleTypes1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DakarRallyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="VehicleTypes" EntityType="Self.VehicleType" />
+          <AssociationSet Name="FK_VehicleSubTypeId" Association="Self.FK_VehicleSubTypeId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleTypeId" Association="Self.FK_VehicleTypeId">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParentId_Id" Association="Self.FK_ParentId_Id">
+            <End Role="VehicleTypes" EntitySet="VehicleTypes" />
+            <End Role="VehicleTypes1" EntitySet="VehicleTypes" />
+          </AssociationSet>
+          <EntitySet Name="Malfunctions" EntityType="Model.Malfunction" />
+          <AssociationSet Name="FK_Vehicle" Association="Model.FK_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="Malfunction" EntitySet="Malfunctions" />
+          </AssociationSet>
+          <EntitySet Name="Races" EntityType="Model.Race" />
+          <EntitySet Name="RaceVehicles" EntityType="Model.RaceVehicle" />
+          <AssociationSet Name="FK_Race" Association="Model.FK_Race">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="Malfunction" EntitySet="Malfunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RaceId" Association="Model.FK_RaceId">
+            <End Role="Race" EntitySet="Races" />
+            <End Role="RaceVehicle" EntitySet="RaceVehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleId" Association="Model.FK_VehicleId">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="RaceVehicle" EntitySet="RaceVehicles" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Malfunction">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="VehicleId" />
+            <PropertyRef Name="MalfunctionId" />
+          </Key>
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <Property Name="VehicleId" Type="Int32" Nullable="false" />
+          <Property Name="MalfunctionId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="StartAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Vehicle" Relationship="Model.FK_Vehicle" FromRole="Malfunction" ToRole="Vehicle" />
+          <NavigationProperty Name="Race" Relationship="Model.FK_Race" FromRole="Malfunction" ToRole="Race" />
+        </EntityType>
+        <Association Name="FK_Vehicle">
+          <End Type="Model.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="Model.Malfunction" Role="Malfunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Malfunction">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="EndsAt" Type="DateTime" Precision="3" />
+          <Property Name="StartsAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Malfunctions" Relationship="Model.FK_Race" FromRole="Race" ToRole="Malfunction" />
+          <NavigationProperty Name="RaceVehicles" Relationship="Model.FK_RaceId" FromRole="Race" ToRole="RaceVehicle" />
+        </EntityType>
+        <EntityType Name="RaceVehicle">
+          <Key>
+            <PropertyRef Name="RaceId" />
+            <PropertyRef Name="VehicleId" />
+          </Key>
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <Property Name="VehicleId" Type="Int32" Nullable="false" />
+          <Property Name="Distance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="FinishTime" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EndsRaceAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Race" Relationship="Model.FK_RaceId" FromRole="RaceVehicle" ToRole="Race" />
+          <NavigationProperty Name="Vehicle" Relationship="Model.FK_VehicleId" FromRole="RaceVehicle" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="FK_Race">
+          <End Type="Model.Race" Role="Race" Multiplicity="1" />
+          <End Type="Model.Malfunction" Role="Malfunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Malfunction">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RaceId">
+          <End Type="Model.Race" Role="Race" Multiplicity="1" />
+          <End Type="Model.RaceVehicle" Role="RaceVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Race">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceVehicle">
+              <PropertyRef Name="RaceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleId">
+          <End Type="Model.Vehicle" Role="Vehicle" Multiplicity="1" />
+          <End Type="Model.RaceVehicle" Role="RaceVehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RaceVehicle">
+              <PropertyRef Name="VehicleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DakarRallyEntities">
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="Model.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+                <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+                <ScalarProperty Name="VehicleSubtypeId" ColumnName="VehicleSubtypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleTypes">
+            <EntityTypeMapping TypeName="Model.VehicleType">
+              <MappingFragment StoreEntitySet="VehicleTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TopSpeedKmH" ColumnName="TopSpeedKmH" />
+                <ScalarProperty Name="LightMalfunctionHours" ColumnName="LightMalfunctionHours" />
+                <ScalarProperty Name="PercentageForLightMalfunction" ColumnName="PercentageForLightMalfunction" />
+                <ScalarProperty Name="PercentageForHeavyMalfanction" ColumnName="PercentageForHeavyMalfanction" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Malfunctions">
+            <EntityTypeMapping TypeName="Model.Malfunction">
+              <MappingFragment StoreEntitySet="Malfunctions">
+                <ScalarProperty Name="EndAt" ColumnName="EndAt" />
+                <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MalfunctionId" ColumnName="MalfunctionId" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Races">
+            <EntityTypeMapping TypeName="Model.Race">
+              <MappingFragment StoreEntitySet="Races">
+                <ScalarProperty Name="StartsAt" ColumnName="StartsAt" />
+                <ScalarProperty Name="EndsAt" ColumnName="EndsAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RaceVehicles">
+            <EntityTypeMapping TypeName="Model.RaceVehicle">
+              <MappingFragment StoreEntitySet="RaceVehicles">
+                <ScalarProperty Name="EndsRaceAt" ColumnName="EndsRaceAt" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

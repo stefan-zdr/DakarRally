@@ -3,3 +3,14 @@
 ################################################################################
 
 /packages
+/.vs
+/src/DakarRally.API/bin
+/src/DakarRally.API/obj
+/src/DakarRally.BL/bin
+/src/DakarRally.BL/obj
+/src/DakarRally.DAL/bin
+/src/DakarRally.DAL/obj
+/src/DakarRally.Interfaces/bin
+/src/DakarRally.Interfaces/obj
+/src/DakarRally.Models/bin
+/src/DakarRally.Models/obj

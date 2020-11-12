@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="DakarRallyEntities">
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="Model.Vehicle">
+        <MappingFragment StoreEntitySet="Vehicles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ManufacturingDate" ColumnName="ManufacturingDate" />
+          <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+          <ScalarProperty Name="VehicleSubtypeId" ColumnName="VehicleSubtypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleTypes">
+      <EntityTypeMapping TypeName="Model.VehicleType">
+        <MappingFragment StoreEntitySet="VehicleTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TopSpeedKmH" ColumnName="TopSpeedKmH" />
+          <ScalarProperty Name="LightMalfunctionHours" ColumnName="LightMalfunctionHours" />
+          <ScalarProperty Name="PercentageForLightMalfunction" ColumnName="PercentageForLightMalfunction" />
+          <ScalarProperty Name="PercentageForHeavyMalfanction" ColumnName="PercentageForHeavyMalfanction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Malfunctions">
+      <EntityTypeMapping TypeName="Model.Malfunction">
+        <MappingFragment StoreEntitySet="Malfunctions">
+          <ScalarProperty Name="EndAt" ColumnName="EndAt" />
+          <ScalarProperty Name="StartAt" ColumnName="StartAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="MalfunctionId" ColumnName="MalfunctionId" />
+          <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+          <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Races">
+      <EntityTypeMapping TypeName="Model.Race">
+        <MappingFragment StoreEntitySet="Races">
+          <ScalarProperty Name="StartsAt" ColumnName="StartsAt" />
+          <ScalarProperty Name="EndsAt" ColumnName="EndsAt" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RaceVehicles">
+      <EntityTypeMapping TypeName="Model.RaceVehicle">
+        <MappingFragment StoreEntitySet="RaceVehicles">
+          <ScalarProperty Name="EndsRaceAt" ColumnName="EndsRaceAt" />
+          <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+          <ScalarProperty Name="Distance" ColumnName="Distance" />
+          <ScalarProperty Name="VehicleId" ColumnName="VehicleId" />
+          <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
