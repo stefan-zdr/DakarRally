@@ -15,8 +15,8 @@ namespace DakarRally.DAL.Model
     
     public partial class DakarRallyEntities : DbContext
     {
-        public DakarRallyEntities()
-            : base("name=DakarRallyEntities")
+        public DakarRallyEntities(string connectionString)
+            : base(connectionString)
         {
         }
     

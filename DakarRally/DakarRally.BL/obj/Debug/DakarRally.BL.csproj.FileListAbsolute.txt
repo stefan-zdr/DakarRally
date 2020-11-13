@@ -46,3 +46,5 @@ C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\bin\Debug\DakarR
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\bin\Debug\DakarRally.Models.pdb
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\bin\Debug\EntityFramework.xml
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\obj\Debug\DakarRally.BL.csproj.CopyComplete
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\bin\Debug\DakarRally.Common.dll
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.BL\bin\Debug\DakarRally.Common.pdb

@@ -121,6 +121,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DakarRally.Common\DakarRally.Common.csproj">
+      <Project>{1942B2CC-7D2B-4F27-9611-BAAE7D0004AE}</Project>
+      <Name>DakarRally.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DakarRally.Interfaces\DakarRally.Interfaces.csproj">
       <Project>{a9cd0aae-1164-4c1b-9bdd-b015e23e2257}</Project>
       <Name>DakarRally.Interfaces</Name>

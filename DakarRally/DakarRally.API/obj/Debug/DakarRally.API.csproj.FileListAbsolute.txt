@@ -261,3 +261,5 @@ C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\bin\Antlr3.Runt
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\obj\Debug\DakarRally.API.csproj.CopyComplete
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\bin\DakarRally.API.xml
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\bin\DakarRally.Common.dll
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.API\bin\DakarRally.Common.pdb

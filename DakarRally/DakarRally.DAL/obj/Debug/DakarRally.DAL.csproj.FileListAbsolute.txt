@@ -36,3 +36,5 @@ C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\bin\Debug\Entit
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\bin\Debug\EntityFramework.SqlServerCompact.xml
 C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\obj\Debug\DakarRally.DAL.csproj.CopyComplete
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\bin\Debug\DakarRally.Common.dll
+C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.DAL\bin\Debug\DakarRally.Common.pdb

@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using DakarRally.Common;
+using System;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace DakarRally.API
@@ -7,6 +9,7 @@ namespace DakarRally.API
     {
         protected void Application_Start()
         {
+            AppSettings.SetDebug(true, AppDomain.CurrentDomain.BaseDirectory);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

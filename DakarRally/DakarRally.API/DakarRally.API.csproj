@@ -266,6 +266,10 @@
       <Project>{f93038b8-4225-4f6d-b99f-db39c7d2c144}</Project>
       <Name>DakarRally.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DakarRally.Common\DakarRally.Common.csproj">
+      <Project>{1942B2CC-7D2B-4F27-9611-BAAE7D0004AE}</Project>
+      <Name>DakarRally.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DakarRally.DAL\DakarRally.DAL.csproj">
       <Project>{E91D1838-26F9-44FF-B5EB-06D62E8BEBDA}</Project>
       <Name>DakarRally.DAL</Name>
