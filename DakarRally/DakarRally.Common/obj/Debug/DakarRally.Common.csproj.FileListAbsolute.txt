@@ -1,6 +1,0 @@
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\bin\Debug\DakarRally.Common.dll
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\bin\Debug\DakarRally.Common.pdb
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\obj\Debug\DakarRally.Common.csprojAssemblyReference.cache
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\obj\Debug\DakarRally.Common.csproj.CoreCompileInputs.cache
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\obj\Debug\DakarRally.Common.dll
-C:\Users\stefa\Source\Repos\DakarRally\DakarRally\DakarRally.Common\obj\Debug\DakarRally.Common.pdb
