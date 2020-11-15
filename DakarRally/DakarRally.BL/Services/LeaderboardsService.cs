@@ -7,9 +7,6 @@ using DakarRally.Models.Vehicles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DakarRally.BAL.Services
 {
@@ -98,7 +95,7 @@ namespace DakarRally.BAL.Services
             };
         }
 
-        public List<VehicleStatistics> GetVehicles(int raceId, string team, string model, DateTime? manufacturingDate, MalfunctionStatus? status, decimal? distance)
+        public List<VehicleStats> GetVehicles(int raceId, string team, string model, DateTime? manufacturingDate, MalfunctionStatus? status, decimal? distance, string sortOrder)
         {
             var leaderboard = GetLeaderboard(raceId, DateTime.Now);
             if (leaderboard == null)
@@ -106,22 +103,55 @@ namespace DakarRally.BAL.Services
                 return null;
             }
 
-            return leaderboard.Where(x => (string.IsNullOrEmpty(team) || x.TeamName == team)
+            var vehicles = leaderboard.Where(x => (string.IsNullOrEmpty(team) || x.TeamName == team)
                                           && (string.IsNullOrEmpty(model) || x.Model == model)
                                           && (!manufacturingDate.HasValue || x.ManufacturingDate == manufacturingDate)
                                           && (!status.HasValue || x.MalfunctionStatus == status)
-                                          && (!distance.HasValue || x.Distance == distance))
-                .Select(x => new VehicleStatistics()
-                {
-                    Distance = x.Distance,
-                    Status = x.MalfunctionStatus,
-                    FinishTime = x.FinishTime,
-                    NumberOfMalfunctions = x.Malfunctions.Count(),
-                    CurrentMalfunctionStartAt = GetCurrentMalfunction(x, DateTime.Now)?.StartAt,
-                }).ToList();
+                                          && (!distance.HasValue || x.Distance == distance));
+
+            return SortVehiclesBy(vehicles, sortOrder).Select(x => new VehicleStats()
+            {
+                Id = x.VehicleId,
+                TeamName = x.TeamName,
+                Model = x.Model,
+                ManufacturingDate = x.ManufacturingDate,
+                Distance = x.Distance,
+                Status = x.MalfunctionStatus,
+                VehicleType = x.Type,
+                VehicleSubtype = x.Subtype
+            }).ToList();
         }
 
         #region Private Methods
+
+        private IEnumerable<LeaderboardVehicle> SortVehiclesBy(IEnumerable<LeaderboardVehicle> vehicles, string sortOrder)
+        {
+            switch (sortOrder)
+            {
+                case "team":
+                    return vehicles.OrderBy(x => x.TeamName);
+                case "team_desc":
+                    return vehicles.OrderByDescending(x => x.TeamName);
+                case "model":
+                    return vehicles.OrderBy(x => x.Model);
+                case "model_desc":
+                    return vehicles.OrderByDescending(x => x.Model);
+                case "manufacturingDate":
+                    return vehicles.OrderBy(x => x.ManufacturingDate);
+                case "manufacturingDate_desc":
+                    return vehicles.OrderByDescending(x => x.ManufacturingDate);
+                case "status":
+                    return vehicles.OrderBy(x => x.MalfunctionStatus);
+                case "status_desc":
+                    return vehicles.OrderByDescending(x => x.MalfunctionStatus);
+                case "distance":
+                    return vehicles.OrderBy(x => x.Distance);
+                case "distance_desc":
+                    return vehicles.OrderByDescending(x => x.Distance);
+                default:
+                    return vehicles;
+            }
+        }
 
         private MalfunctionStats GetCurrentMalfunction(LeaderboardVehicle vehicle, DateTime currentDate)
         {

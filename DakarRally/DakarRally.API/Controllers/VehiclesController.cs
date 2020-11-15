@@ -26,11 +26,12 @@ namespace DakarRally.API.Controllers
         /// <param name="manufacturingDate">Manufacturing date</param>
         /// <param name="status">Malfunction status</param>
         /// <param name="distance">Vehicles distance</param>
+        /// <param name="sortOrder">Sort order</param>
         /// <returns></returns>
         [Route()]
-        public IHttpActionResult Get(int raceId, string team = "", string model = "", DateTime? manufacturingDate = null, MalfunctionStatus? status = null, decimal? distance = null)
+        public IHttpActionResult Get(int raceId, string team = "", string model = "", DateTime? manufacturingDate = null, MalfunctionStatus? status = null, decimal? distance = null, string sortOrder = "")
         {
-            List<VehicleStatistics> vehicles = _leaderboardService.GetVehicles(raceId, team, model, manufacturingDate, status, distance);
+            List<VehicleStats> vehicles = _leaderboardService.GetVehicles(raceId, team, model, manufacturingDate, status, distance, sortOrder);
             return OkOrNotFound(vehicles);
         }
 

@@ -11,7 +11,7 @@ namespace DakarRally.Interfaces.Services
         List<Leaderboard> GetLeaderboards(int raceId);
         List<Leaderboard> GetLeaderboardsForType(int raceId, string type);
         VehicleStatistics GetVehicle(int raceId, int vehicleId);
-        List<VehicleStatistics> GetVehicles(int raceId, string team, string model, DateTime? manufacturingDate, MalfunctionStatus? status, decimal? distance);
+        List<VehicleStats> GetVehicles(int raceId, string team, string model, DateTime? manufacturingDate, MalfunctionStatus? status, decimal? distance, string sortOrder);
         RaceStats GetRaceStats(int raceId);
     }
 }
